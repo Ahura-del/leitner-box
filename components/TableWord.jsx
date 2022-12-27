@@ -1,24 +1,33 @@
-import React, { useState } from "react";
-import {  FlatList, Text, TouchableOpacity, View } from "react-native";
-import { GestureHandlerRootView, Swipeable } from "react-native-gesture-handler";
+import React, {useRef, useState} from 'react';
+import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import {GestureHandlerRootView, Swipeable} from 'react-native-gesture-handler';
 
-
-
-const TableWord = ({ words , deleteHandle }) => {
+const TableWord = ({words, deleteHandle, test, editHandle, setScreen}) => {
   const [showPersian, setShowPersian] = useState(false);
+  const closeRef = useRef();
   const [showEnglish, setShowEnglish] = useState(false);
   const [showPronounce, setShowPronounce] = useState(false);
-
-
-  const rightSwipeActions = (e) => (
-    <TouchableOpacity onPress={()=>deleteHandle(e)} className="bg-red-600 flex items-center justify-center w-32" >
+  const testHandler = e => {
+    setScreen(e.nativeEvent.contentOffset.y > 2);
+  };
+  const rightSwipeActions = e => (
+    <TouchableOpacity
+      onPress={() => deleteHandle(e)}
+      className="bg-red-600 flex items-center justify-center w-32">
       <Text className="text-white">Delete</Text>
     </TouchableOpacity>
-
-   
   );
-  
 
+  const leftSwipeAction = e => (
+    <TouchableOpacity
+      onPress={() => {
+        closeRef.current?.close();
+        editHandle(e);
+      }}
+      className="bg-cyan-500 flex items-center justify-center w-32">
+      <Text className="text-white">Edit</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <View className="pb-[100px]">
@@ -35,52 +44,56 @@ const TableWord = ({ words , deleteHandle }) => {
           </TouchableOpacity>
         </View>
       </View>
-<GestureHandlerRootView>
-
-      <FlatList
-        scrollEnabled={true}
-        data={words}
-        renderItem={({ item }) => {
-          return (
-            <Swipeable renderRightActions={() =>rightSwipeActions(item.id)}>
-              <View className="flex flex-row justify-between border-b  border-slate-400 dark:border-slate-300 p-4">
-                {!showEnglish ? (
-                  <Text className="text-slate-900 dark:text-gray-50  text-left basis-[30%]">
-                    {item.english}
-                  </Text>
-                ) : (
-                  <Text className="text-slate-900 dark:text-gray-50 text-left basis-[30%]">
-                    .....
-                  </Text>
-                )}
-                {!showPronounce ? (
-                  <Text className="text-slate-900 dark:text-gray-50 text-center basis-[30%]">
-                    {item.pronounce ? item.pronounce : "....."}
-                  </Text>
-                ) : (
-                  <Text className="text-slate-900 dark:text-gray-50 text-center basis-[30%]">
-                    .....
-                  </Text>
-                )}
-                {!showPersian ? (
-                  <Text
-                    style={{ fontFamily: "Vazirmatn-Regular sanserif" }}
-                    className="text-slate-900 dark:text-gray-50 text-right basis-[30%]"
-                  >
-                    {item.persian}
-                  </Text>
-                ) : (
-                  <Text className="text-slate-900 dark:text-gray-50 text-right basis-[30%]">
-                    .....
-                  </Text>
-                )}
-              </View>
-            </Swipeable>
-          );
-        }}
-        keyExtractor={(item) => item.id}
-        />
+      {!test && (
+        <GestureHandlerRootView>
+          <FlatList
+            onScroll={testHandler}
+            scrollEnabled={true}
+            data={words}
+            renderItem={({item}) => {
+              return (
+                <Swipeable
+                  renderRightActions={() => rightSwipeActions(item.id)}
+                  ref={closeRef}
+                  renderLeftActions={() => leftSwipeAction(item.id)}>
+                  <View className="flex flex-row justify-between border-b  border-slate-400 dark:border-slate-300 p-4">
+                    {!showEnglish ? (
+                      <Text className="text-slate-900 dark:text-gray-50  text-left basis-[30%]">
+                        {item.english}
+                      </Text>
+                    ) : (
+                      <Text className="text-slate-900 dark:text-gray-50 text-left basis-[30%]">
+                        .....
+                      </Text>
+                    )}
+                    {!showPronounce ? (
+                      <Text className="text-slate-900 dark:text-gray-50 text-center basis-[30%]">
+                        {item.pronounce ? item.pronounce : '.....'}
+                      </Text>
+                    ) : (
+                      <Text className="text-slate-900 dark:text-gray-50 text-center basis-[30%]">
+                        .....
+                      </Text>
+                    )}
+                    {!showPersian ? (
+                      <Text
+                        style={{fontFamily: 'Vazirmatn-Regular sanserif'}}
+                        className="text-slate-900 dark:text-gray-50 text-right basis-[30%]">
+                        {item.persian}
+                      </Text>
+                    ) : (
+                      <Text className="text-slate-900 dark:text-gray-50 text-right basis-[30%]">
+                        .....
+                      </Text>
+                    )}
+                  </View>
+                </Swipeable>
+              );
+            }}
+            keyExtractor={item => item.id}
+          />
         </GestureHandlerRootView>
+      )}
     </View>
   );
 };

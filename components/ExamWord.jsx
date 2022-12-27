@@ -7,7 +7,6 @@ const ExamWord = ({ testWord, rebuildHandle }) => {
   const [answer, setAnswer] = useState("");
   const [response, setResponse] = useState(true);
 
-
   const checkHandle = () => {
     if (answer === "") return;
     if (testWord.persian === answer) {
