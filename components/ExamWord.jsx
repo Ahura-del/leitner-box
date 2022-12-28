@@ -27,7 +27,7 @@ const ExamWord = ({ testWord, rebuildHandle }) => {
       <TextInput
         value={answer}
         onChangeText={(text) => setAnswer(text)}
-        style={{ fontFamily: "Vazirmatn-Regular" }}
+        contentStyle={{ fontFamily: "Vazirmatn-Regular" }}
         placeholder="ترجمه"
         mode="flat"
         className="bg-gray-50 text-center w-full"

@@ -18,6 +18,7 @@ const AddWord = ({ addHandler, setTextValue, textValue }) => {
       <TextInput
         className="bg-slate-50 placeholder:text-gray-300"
         mode="outlined"
+        contentStyle={{ fontFamily: "Vazirmatn-Regular" }}
         label="Pronounce"
         value={textValue.pronounce}
         onChangeText={(text) => setTextValue({ ...textValue, pronounce: text })}
@@ -25,6 +26,7 @@ const AddWord = ({ addHandler, setTextValue, textValue }) => {
       <TextInput
         className="bg-slate-50 placeholder:text-gray-300"
         mode="outlined"
+        contentStyle={{ fontFamily: "Vazirmatn-Regular" }}
         label="Persian"
         value={textValue.persian}
         onChangeText={(text) => setTextValue({ ...textValue, persian: text })}

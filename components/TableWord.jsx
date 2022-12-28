@@ -31,21 +31,21 @@ const TableWord = ({words, deleteHandle, test, editHandle, setScreen}) => {
 
   return (
     <View className="pb-[100px]">
-      <View className="w-full bg-slate-100 dark:bg-slate-800 fixed top-0 ">
+      <View className="w-full bg-slate-100  fixed top-0 ">
         <View className="flex flex-row justify-between items-center  p-4 ">
           <TouchableOpacity onPress={() => setShowEnglish(!showEnglish)}>
-            <Text className="text-slate-900 dark:text-gray-50">English</Text>
+            <Text className="text-slate-900 underline font-semibold ">English</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setShowPronounce(!showPronounce)}>
-            <Text className="text-slate-900 dark:text-gray-50">Pronounce</Text>
+            <Text className="text-slate-900 underline font-semibold ">Pronounce</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setShowPersian(!showPersian)}>
-            <Text className="text-slate-900 dark:text-gray-50">Persian</Text>
+            <Text className="text-slate-900 underline font-semibold ">Persian</Text>
           </TouchableOpacity>
         </View>
       </View>
       {!test && (
-        <GestureHandlerRootView>
+        <GestureHandlerRootView className="mb-2">
           <FlatList
             onScroll={testHandler}
             scrollEnabled={true}
@@ -56,33 +56,33 @@ const TableWord = ({words, deleteHandle, test, editHandle, setScreen}) => {
                   renderRightActions={() => rightSwipeActions(item.id)}
                   ref={closeRef}
                   renderLeftActions={() => leftSwipeAction(item.id)}>
-                  <View className="flex flex-row justify-between border-b  border-slate-400 dark:border-slate-300 p-4">
+                  <View className="flex flex-row justify-between border-b border-slate-400  p-4">
                     {!showEnglish ? (
-                      <Text className="text-slate-900 dark:text-gray-50  text-left basis-[30%]">
+                      <Text className="text-slate-900   text-left basis-[30%]">
                         {item.english}
                       </Text>
                     ) : (
-                      <Text className="text-slate-900 dark:text-gray-50 text-left basis-[30%]">
+                      <Text className="text-slate-900  text-left basis-[30%]">
                         .....
                       </Text>
                     )}
                     {!showPronounce ? (
-                      <Text className="text-slate-900 dark:text-gray-50 text-center basis-[30%]">
+                      <Text style={{fontFamily: 'Vazirmatn-Regular'}} className="text-slate-900  text-center basis-[30%]">
                         {item.pronounce ? item.pronounce : '.....'}
                       </Text>
                     ) : (
-                      <Text className="text-slate-900 dark:text-gray-50 text-center basis-[30%]">
+                      <Text className="text-slate-900  text-center basis-[30%]">
                         .....
                       </Text>
                     )}
                     {!showPersian ? (
                       <Text
-                        style={{fontFamily: 'Vazirmatn-Regular sanserif'}}
-                        className="text-slate-900 dark:text-gray-50 text-right basis-[30%]">
+                        style={{fontFamily: 'Vazirmatn-Regular'}}
+                        className="text-slate-900  text-right basis-[30%]">
                         {item.persian}
                       </Text>
                     ) : (
-                      <Text className="text-slate-900 dark:text-gray-50 text-right basis-[30%]">
+                      <Text className="text-slate-900  text-right basis-[30%]">
                         .....
                       </Text>
                     )}

@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Vazirmatn Light.ttf",
+      "sha1": "aff0947118f6be82089f5606b2b89a9c668d0932"
+    },
+    {
+      "path": "assets/fonts/Vazirmatn-Regular.ttf",
+      "sha1": "ca26235a766a90d41d1aa79e42365946b79f0d67"
+    }
+  ]
+}
