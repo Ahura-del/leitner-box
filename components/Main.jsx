@@ -111,11 +111,19 @@ const Main = () => {
     let w = /[پچجحخهعغفقثصضشسیبلاتنمکگوئدذرزطظژؤإأءًٌٍَُِّ\s]+$/;
     if (word.match(w)) {
       const pWord = words.find(item => item.persian == word);
+      if (pWord === undefined) {
+        setError({show: true, msg: 'This word not exist!'});
+        return;
+      }
       setSearchWord(pWord);
     } else {
       const eWord = words.find(
         item => item.english.toLowerCase() == word.toLowerCase(),
       );
+      if (eWord === undefined) {
+        setError({show: true, msg: 'This word not exist!'});
+        return;
+      }
       setSearchWord(eWord);
     }
   };
@@ -133,10 +141,21 @@ const Main = () => {
   };
 
   const changeWord = async (oldWord, newWord) => {
-    const findNewWordInWords = words.find(
+    const findNewWordInWordsForEnglish = words.find(
       item => item.english.toLowerCase() === newWord.english.toLowerCase(),
     );
-    if (!findNewWordInWords) {
+    const findNewWordInWordsForPersian = words.find(
+      item => item.persian.toLowerCase() === newWord.persian.toLowerCase(),
+    );
+    const findNewWordInWordsForPronounce = words.find(
+      item => item.pronounce.toLowerCase() === newWord.pronounce.toLowerCase(),
+    );
+
+    if (
+      !findNewWordInWordsForEnglish ||
+      !findNewWordInWordsForPersian ||
+      !findNewWordInWordsForPronounce
+    ) {
       const result = words.map((item, index) =>
         item.id == oldWord.id ? (item[index] = newWord) : item,
       );
@@ -145,7 +164,7 @@ const Main = () => {
       await AsyncStorage.setItem('words', JSON.stringify(result));
       setCurrentWordVisible(false);
     } else {
-      setError({show: true, msg: 'This word duplicate.'});
+      setCurrentWordVisible(false);
       return;
     }
   };
@@ -183,7 +202,7 @@ const Main = () => {
         <View style={{flex: 1}}>
           <View style={{flex: 1}} className="w-full py-3 bg-black">
             <View className="w-[95%] h-full mx-auto flex flex-row items-center justify-between">
-              <Text className="text-white pl-5">Words: {words.length}</Text>
+              <Text className="text-white pl-3">Words: {words.length}</Text>
 
               <View>
                 <Menu

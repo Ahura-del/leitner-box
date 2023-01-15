@@ -22,7 +22,7 @@ const SearchWord = ({searchWordObject, searchHandler, resetHandler}) => {
       <View>
         <TextInput
           mode="flat"
-          contentStyle={{ fontFamily: "Vazirmatn-Regular" }}
+          contentStyle={{fontFamily: 'Vazirmatn-Regular'}}
           value={searchWord}
           onChangeText={text => {
             setErrorMsg(false);
@@ -60,8 +60,7 @@ const SearchWord = ({searchWordObject, searchHandler, resetHandler}) => {
           ) : (
             <TextInput
               value={searchWordObject.persian}
-              contentStyle={{ fontFamily: "Vazirmatn-Regular" }}
-              
+              contentStyle={{fontFamily: 'Vazirmatn-Regular'}}
               editable={false}
               label="Persian"
               mode="flat"

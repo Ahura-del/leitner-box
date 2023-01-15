@@ -210,7 +210,8 @@ android {
             include (*reactNativeArchitectures())
         }
     }
-   
+   signingConfigs {
+         
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
